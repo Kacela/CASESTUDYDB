@@ -1,0 +1,60 @@
+CREATE SCHEMA `spocdb` ;
+
+CREATE TABLE `spocdb`.`training_request` (
+  `request_id` INT NOT NULL AUTO_INCREMENT,
+  `vertical_name` VARCHAR(45) NULL,
+  `technology_name` VARCHAR(45) NULL,
+  `request_status` INT NULL DEFAULT 0,
+  PRIMARY KEY (`request_id`));
+
+
+
+CREATE TABLE `spocdb`.`trainer` (
+  `trainer_id` INT NOT NULL AUTO_INCREMENT,
+  `trainer_name` VARCHAR(45) NULL,
+  `technology_id` INT NULL,
+  `trainer_status` TINYINT NULL DEFAULT 1,
+  PRIMARY KEY (`trainer_id`));
+  
+ 
+CREATE TABLE `spocdb`.`technology` (
+  `technology_id` INT NOT NULL AUTO_INCREMENT,
+  `technology_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`technology_id`));
+
+
+CREATE TABLE `spocdb`.`room` (
+  `room_id` INT NOT NULL AUTO_INCREMENT,
+  `room_no` INT NULL,
+  `room_status` TINYINT NULL DEFAULT 1,
+  PRIMARY KEY (`room_id`));
+  
+  
+  
+CREATE TABLE `spocdb`.`vertical` (
+  `vertical_id` INT NOT NULL AUTO_INCREMENT,
+  `vertical_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`vertical_id`));
+
+
+alter table spocdb.trainer ADD FOREIGN KEY (technology_id) REFERENCES spocdb.technology (technology_id); 
+
+
+
+INSERT INTO `spocdb`.`training_request` (`vertical_name`, `technology_name`) VALUES ('HealthCare', 'Python');
+INSERT INTO `spocdb`.`training_request` (`vertical_name`, `technology_name`) VALUES ('HealthCare', 'Java');
+INSERT INTO `spocdb`.`training_request` (`vertical_name`, `technology_name`) VALUES ('MFG', 'Java');
+INSERT INTO `spocdb`.`training_request` (`vertical_name`, `technology_name`) VALUES ('Banking', 'Python');
+INSERT INTO `spocdb`.`training_request` (`vertical_name`, `technology_name`) VALUES ('Banking', 'Java');
+INSERT INTO `spocdb`.`training_request` (`vertical_name`, `technology_name`) VALUES ('MFG', 'ASP.NET');
+
+
+INSERT INTO `spocdb`.`technology` (`technology_id`, `technology_name`) VALUES ('201', 'Java');
+INSERT INTO `spocdb`.`technology` (`technology_id`, `technology_name`) VALUES ('202', 'Python');
+INSERT INTO `spocdb`.`technology` (`technology_id`, `technology_name`) VALUES ('203', 'ASP.NET');
+
+INSERT INTO `spocdb`.`vertical` (`vertical_id`, `vertical_name`) VALUES ('101', 'HealthCare');
+INSERT INTO `spocdb`.`vertical` (`vertical_id`, `vertical_name`) VALUES ('102', 'MFG');
+INSERT INTO `spocdb`.`vertical` (`vertical_id`, `vertical_name`) VALUES ('103', 'Banking');
+
+
