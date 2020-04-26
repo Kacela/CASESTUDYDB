@@ -1,0 +1,71 @@
+CREATE SCHEMA `spocdb2` ;
+
+CREATE TABLE `spocdb2`.`training_request` (
+  `request_id` INT NOT NULL AUTO_INCREMENT,
+ `vertical_id` INT NULL,
+  `technology_id` INT NULL,
+  `request_status` INT NULL DEFAULT 0,
+  PRIMARY KEY (`request_id`));
+
+
+
+CREATE TABLE `spocdb2`.`trainer` (
+  `trainer_id` INT NOT NULL AUTO_INCREMENT,
+  `trainer_name` VARCHAR(45) NULL,
+  `technology_id` INT NULL,
+  `trainer_status` TINYINT NULL DEFAULT 1,
+  PRIMARY KEY (`trainer_id`));
+  
+ 
+CREATE TABLE `spocdb2`.`technology` (
+  `technology_id` INT NOT NULL AUTO_INCREMENT,
+  `technology_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`technology_id`));
+
+
+CREATE TABLE `spocdb2`.`room` (
+  `room_id` INT NOT NULL AUTO_INCREMENT,
+  `room_no` INT NULL,
+  `room_status` TINYINT NULL DEFAULT 1,
+  PRIMARY KEY (`room_id`));
+  
+  
+  
+CREATE TABLE `spocdb2`.`vertical` (
+  `vertical_id` INT NOT NULL AUTO_INCREMENT,
+  `vertical_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`vertical_id`));
+
+
+alter table spocdb2.trainer ADD FOREIGN KEY (technology_id) REFERENCES spocdb2.technology (technology_id); 
+alter table spocdb2.training_request ADD FOREIGN KEY (vertical_id) REFERENCES spocdb2.vertical (vertical_id); 
+alter table spocdb2.training_request ADD FOREIGN KEY (technology_id) REFERENCES spocdb2.technology (technology_id); 
+
+
+
+INSERT INTO `spocdb2`.`technology` (`technology_id`, `technology_name`) VALUES ('201', 'Java');
+INSERT INTO `spocdb2`.`technology` (`technology_id`, `technology_name`) VALUES ('202', 'Python');
+INSERT INTO `spocdb2`.`technology` (`technology_id`, `technology_name`) VALUES ('203', 'ASP.NET');
+
+INSERT INTO `spocdb2`.`vertical` (`vertical_id`, `vertical_name`) VALUES ('101', 'HealthCare');
+INSERT INTO `spocdb2`.`vertical` (`vertical_id`, `vertical_name`) VALUES ('102', 'MFG');
+INSERT INTO `spocdb2`.`vertical` (`vertical_id`, `vertical_name`) VALUES ('103', 'Banking');
+
+
+INSERT INTO `spocdb2`.`room` (`room_no`, `room_status`) VALUES ('301', '1');
+INSERT INTO `spocdb2`.`room` (`room_no`, `room_status`) VALUES ('302', '0');
+
+
+INSERT INTO `spocdb2`.`training_request` (`vertical_id`, `technology_id`) VALUES ('101', '202');
+INSERT INTO `spocdb2`.`training_request` (`vertical_id`, `technology_id`) VALUES ('101', '201');
+INSERT INTO `spocdb2`.`training_request` (`vertical_id`, `technology_id`) VALUES ('102', '201');
+INSERT INTO `spocdb2`.`training_request` (`vertical_id`, `technology_id`) VALUES ('103', '201');
+INSERT INTO `spocdb2`.`training_request` (`vertical_id`, `technology_id`) VALUES ('102', '203');
+
+
+INSERT INTO `spocdb2`.`trainer` (`trainer_id`, `trainer_name`, `technology_id`, `trainer_status`) VALUES ('501', 'Alka Chandra', '201', '0');
+INSERT INTO `spocdb2`.`trainer` (`trainer_id`, `trainer_name`, `technology_id`, `trainer_status`) VALUES ('502', 'Darshan Sakpal', '201', '1');
+INSERT INTO `spocdb2`.`trainer` (`trainer_id`, `trainer_name`, `technology_id`, `trainer_status`) VALUES ('503', 'Heet Nandu', '203', '1');
+INSERT INTO `spocdb2`.`trainer` (`trainer_id`, `trainer_name`, `technology_id`, `trainer_status`) VALUES ('504', 'Kacela D\'Silva', '202', '1');
+INSERT INTO `spocdb2`.`trainer` (`trainer_id`, `trainer_name`, `technology_id`, `trainer_status`) VALUES ('505', 'Unnati Munot', '201', '1');
+
