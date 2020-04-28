@@ -1,0 +1,79 @@
+DROP DATABASE `spocdb`;
+CREATE SCHEMA `spocdb` ;
+
+CREATE TABLE `spocdb`.`vertical` (
+  `vertical_id` INT NOT NULL AUTO_INCREMENT,
+  `vertical_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`vertical_id`));
+
+
+CREATE TABLE `spocdb`.`technology` (
+  `technology_id` INT NOT NULL AUTO_INCREMENT,
+  `technology_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`technology_id`));
+
+CREATE TABLE `spocdb`.`trainer` (
+  `trainer_id` INT NOT NULL AUTO_INCREMENT,
+  `trainer_name` VARCHAR(45) NULL,
+  `technology_id` INT NULL,
+  `trainer_avail_from_date` DATE NULL,
+  `trainer_avail_till_date` DATE NULL,
+  `trainer_avail_from_time` TIME NULL,
+  `trainer_avail_till_time` TIME NULL,
+  PRIMARY KEY (`trainer_id`),
+  FOREIGN KEY (`technology_id`)
+  REFERENCES `spocdb`.`technology` (`technology_id`));
+  
+
+CREATE TABLE `spocdb`.`room` (
+  `room_id` INT NOT NULL AUTO_INCREMENT,
+  `room_no` INT NULL,
+  `capacity` INT NULL,
+  `room_avail_from_date` DATE NULL,
+  `room_avail_till_date` DATE NULL,
+  `room_avail_from_time` TIME NULL,
+  `room_avail_till_time` TIME NULL,
+  PRIMARY KEY (`room_id`));
+
+CREATE TABLE `spocdb`.`incoming_requests` (
+  `request_id` INT NOT NULL AUTO_INCREMENT,
+  `vertical_id` INT NULL,
+  `technology_id` INT NULL,
+  `pm_name` VARCHAR(45) NULL,
+  `candidate_count` INT NULL,
+  `training_mode` VARCHAR(45) NULL,
+  `training_start_date` DATE NULL,
+  `training_end_date` DATE NULL,
+  `training_start_time` TIME NULL,
+  `training_end_time` TIME NULL,
+  `comment` VARCHAR(100) NULL,
+  `request_status` INT NULL DEFAULT 0,
+  PRIMARY KEY (`request_id`),
+  FOREIGN KEY (`vertical_id`)
+  REFERENCES `spocdb`.`vertical` (`vertical_id`),
+  FOREIGN KEY (`technology_id`)
+  REFERENCES `spocdb`.`technology` (`technology_id`));
+  
+  
+  
+CREATE TABLE `spocdb`.`processed_requests` (
+  `processed_request_id` INT NOT NULL AUTO_INCREMENT,
+  `request_id` INT NULL,
+  `vertical_id` INT NULL,
+  `technology_id` INT NULL,
+  `pm_name` VARCHAR(45) NULL,
+  `candidate_count` INT NULL,
+  `training_mode` VARCHAR(45) NULL,
+  `training_start_date` DATE NULL,
+  `training_end_date` DATE NULL,
+  `training_start_time` TIME NULL,
+  `training_end_time` TIME NULL,
+  `request_status` INT NULL,
+  PRIMARY KEY (`processed_request_id`),
+  FOREIGN KEY (`request_id`)
+  REFERENCES `spocdb`.`incoming_requests` (`request_id`),
+  FOREIGN KEY (`vertical_id`)
+  REFERENCES `spocdb`.`vertical` (`vertical_id`),
+  FOREIGN KEY (`technology_id`)
+  REFERENCES `spocdb`.`technology` (`technology_id`));  
+ 
