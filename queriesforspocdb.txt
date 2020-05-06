@@ -76,4 +76,25 @@ CREATE TABLE `spocdb`.`processed_requests` (
   REFERENCES `spocdb`.`vertical` (`vertical_id`),
   FOREIGN KEY (`technology_id`)
   REFERENCES `spocdb`.`technology` (`technology_id`));  
+  
+  
+  
+  
+  
+  
+drop table `spocdb`.`processed_requests` ;
+CREATE TABLE `spocdb`.`processed_requests` (
+  `processed_request_id` INT NOT NULL AUTO_INCREMENT,
+  `request_id` INT NULL,
+  `vertical_name` VARCHAR(45) NULL,
+  `technology_name` VARCHAR(45) NULL,
+  `pm_name` VARCHAR(45) NULL,
+  `candidate_count` INT NULL,
+  `training_mode` VARCHAR(45) NULL,
+  `training_start_date` DATE NULL,
+  `training_end_date` DATE NULL,
+  `training_start_time` TIME NULL,
+  `training_end_time` TIME NULL,
+  `request_status` INT NULL,
+  PRIMARY KEY (`processed_request_id`));  
  
