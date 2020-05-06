@@ -95,6 +95,39 @@ CREATE TABLE `spocdb`.`processed_requests` (
   `training_end_date` DATE NULL,
   `training_start_time` TIME NULL,
   `training_end_time` TIME NULL,
-  `request_status` INT NULL,
+  `request_status` INT NULL DEFAULT 0,
+  `comment` VARCHAR(100) NULL,
   PRIMARY KEY (`processed_request_id`));  
- 
+  
+DROP TABLE `spocdb`.`incoming_requests`;
+DROP TABLE `spocdb`.`vertical`;
+DROP TABLE `spocdb`.`trainer`;
+DROP TABLE `spocdb`.`technology`;  
+
+
+CREATE TABLE `spocdb`.`incoming_requests` (
+  `request_id` INT NOT NULL AUTO_INCREMENT,
+  `vertical_name` VARCHAR(45) NULL,
+  `technology_name` VARCHAR(45) NULL,
+  `pm_name` VARCHAR(45) NULL,
+  `candidate_count` INT NULL,
+  `training_mode` VARCHAR(45) NULL,
+  `training_start_date` DATE NULL,
+  `training_end_date` DATE NULL,
+  `training_start_time` TIME NULL,
+  `training_end_time` TIME NULL,
+  `comment` VARCHAR(100) NULL,
+  `request_status` INT NULL DEFAULT 0,
+  PRIMARY KEY (`request_id`));
+  
+CREATE TABLE `spocdb`.`trainer` (
+  `trainer_id` INT NOT NULL AUTO_INCREMENT,
+  `trainer_name` VARCHAR(45) NULL,
+  `technology_name` VARCHAR(45) NULL,
+  `trainer_avail_from_date` DATE NULL,
+  `trainer_avail_till_date` DATE NULL,
+  `trainer_avail_from_time` TIME NULL,
+  `trainer_avail_till_time` TIME NULL,
+   `contact` VARCHAR(45) NULL,
+    `already_assigned` INT NULL DEFAULT 0,
+  PRIMARY KEY (`trainer_id`));  
